@@ -1,5 +1,7 @@
 package com.example.mainactivity;
 
+import android.content.Intent;
+import android.view.View;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -20,5 +22,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void onclickLeaderboard(View v) {
+        Intent intent = new Intent(this,LeaderboardActivity.class);
+        startActivity(intent);
+    }
+
+    public void onclickPlay(View v) {
+        Intent intent = new Intent(this,GameActivity.class);
+        startActivity(intent);
     }
 }
