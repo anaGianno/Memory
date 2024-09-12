@@ -28,13 +28,10 @@ public class PlayerActivity extends AppCompatActivity {
     private String playerName;
     private int playerScore;
     private Intent intent;
-    private LeaderBoard leaderboardInstance;
-
-    public void onCreate(Bundle saveInstanceState){
-
-    }
+    private Leaderboard leaderboardInstance;
 
     public void onclickSubmit(View view){
-
+        Intent intent = new Intent(this,LeaderboardActivity.class);
+        startActivity(intent);
     }
 }

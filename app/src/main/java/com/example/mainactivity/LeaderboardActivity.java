@@ -23,9 +23,5 @@ public class LeaderboardActivity extends AppCompatActivity {
             return insets;
         });
     }
-    private LeaderBoard leaderboardInstance;
-
-    public void onCreate(Bundle saveInstanceState){
-
-    }
+    private Leaderboard leaderboardInstance;
 }

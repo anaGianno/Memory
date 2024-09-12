@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="string_array_front">
+        <item>img_card_front_artist</item>
+        <item>img_card_front_astronaut</item>
+        <item>img_card_front_coder</item>
+        <item>img_card_front_doctor</item>
+        <item>img_card_front_police</item>
+        <item>img_card_front_welder</item>
+    </string-array>
+
+    <string-array name="string_array_banners">
+        <item>R.id.iv_card_0</item>
+        <item>R.id.iv_card_1</item>
+        <item>R.id.iv_card_2</item>
+        <item>R.id.iv_card_3</item>
+        <item>R.id.iv_card_4</item>
+        <item>R.id.iv_card_5</item>
+        <item>R.id.iv_card_6</item>
+        <item>R.id.iv_card_7</item>
+        <item>R.id.iv_card_8</item>
+        <item>R.id.iv_card_9</item>
+        <item>R.id.iv_card_10</item>
+        <item>R.id.iv_card_11</item>
+    </string-array>
+
+</resources>
