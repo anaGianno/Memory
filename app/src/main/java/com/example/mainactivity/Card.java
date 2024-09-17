@@ -27,28 +27,28 @@ public class Card {
         cardType = cType;
         cardBack = cBack;
         cardFront = cFront;
-        setFaceUp(false);
+        isFaceUp = false;
     }
 
     public int getCardNum(){
         return cardNum;
     }
 
-    public String getCardType(){
-        return cardType;
-    }
+        public String getCardType(){
+            return cardType;
+        }
 
-    public String getCardBack(){
-        return cardBack;
-    }
+        public String getCardBack(){
+            return cardBack;
+        }
 
-    public String getCardFront(){ return cardFront; }
+        public String getCardFront(){ return cardFront; }
 
-    public boolean isFaceUp(){
-        return isFaceUp;
-    }
+        public boolean isFaceUp(){
+            return isFaceUp;
+        }
 
-    public void setFaceUp(boolean faceUp){ isFaceUp = faceUp; }
+        public void setFaceUp(boolean faceUp){ isFaceUp = faceUp; }
 
     public ImageView getImageviewCard(){
         return imageviewCard;
@@ -56,14 +56,5 @@ public class Card {
 
     public void setImageviewCard(ImageView ivCard){
         imageviewCard = ivCard;
-        int id;
-        if(isFaceUp()){
-            id = getResources().getIdentifier(cardFront,"drawable",getPackageName());
-        }
-        else{
-            id = getResources().getIdentifier(cardBack,"drawable",getPackageName());
-        }
-        Drawable drawable = getResources().getDrawable(id);
-        imageviewCard.setImageDrawable(drawable);
     }
 }

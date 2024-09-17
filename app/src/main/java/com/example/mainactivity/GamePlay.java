@@ -1,9 +1,18 @@
 package com.example.mainactivity;
 
+import static android.app.PendingIntent.getActivity;
+
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,39 +22,35 @@ public class GamePlay {
     private int totalGuesses = 0;
     private int totalCorrect = 0;
     private boolean isFirstGuess = true;
-    private Card cardFirst;
-    private Card cardSecond;
+    private Card cardFirst = null;
+    private Card cardSecond = null;
     private ArrayList<String> cardTypes = new ArrayList<String>(Arrays.asList(
-            "Coder","Coder","Artist","Artist","Astronaut","Astronaut",
-            "Doctor","Doctor","Scientist","Scientist","Welder","Welder"
+            "coder","coder","artist","artist","astronaut","astronaut",
+            "doctor","doctor","scientist","scientist","welder","welder"
     ));
     private ArrayList<Card> cards = new ArrayList<Card>();
-    private TextView textviewGuesses;
     private Context context;
+    private TextView textviewGuesses;
 
 
 //    c?
     public GamePlay(Context c){
         context = c;
+        textviewGuesses = ((Activity) context).findViewById(R.id.tv_num_guesses);
+
     }
 
     public void setupGame(){
-        String cardBack = "img_card_back.png";
-
-        ArrayList<String> cardFrontTypes = new ArrayList<String>(Arrays.asList(
-                "img_card_front_coder.png","img_card_front_coder.png",
-                "img_card_front_artist.png","img_card_front_artist.png",
-                "img_card_front_astronaut.png","img_card_front_astronaut.png",
-                "img_card_front_doctor.png","img_card_front_doctor.png",
-                "img_card_front_scientist.png","img_card_front_scientist.png",
-                "img_card_front_welder.png","img_card_front_welder.png"));
+        String cardBack = "img_card_back";
+        int DECK_SIZE = 12;
 
         Card card;
-        String[] frontArray = getResources().getStringArray(R.array.string_array_front);
-        for(int i = 0; i < cards.size(); i++){
-            card = new Card(i,cardTypes.get(i),cardBack,cardFrontTypes.get(i));
+        for(int i = 0; i < DECK_SIZE; i++){
+            card = new Card(i,cardTypes.get(i),cardBack,"img_card_front_"+cardTypes.get(i));
             cards.add(card);
         }
+//        java.util.Collections.shuffle(cards);
+
         setupImageviewsAndOnclicks();
         displayCards();
         updateGuessesTextview();
@@ -53,22 +58,40 @@ public class GamePlay {
 
     public void setupImageviewsAndOnclicks(){
         Card card;
-        for(int i = 0; i < cards.size(); i++){
+        ImageView iv;
+        for(int i = 0; i < cards.size(); i++) {
+
             card = cards.get(i);
 
-            card.setImageviewCard();
+            iv = ((Activity)context).findViewById(context.getResources().getIdentifier("iv_card_" + i, "id", context.getPackageName()));
+            card.setImageviewCard(iv);
+
+//            iv.setOnClickListener(new View.OnClickListener(){
+//                public void onClick(View v){
+//
+//                }
+//            });
+
+            iv.setOnClickListener(v -> {
+                onclickCard(v);
+            });
         }
     }
 
     public void displayCardFaceUp(Card card){
-        card.setImageviewCard();
+        int imageID = context.getResources().getIdentifier(card.getCardFront(),"drawable",context.getPackageName());
+        Drawable drawable = context.getResources().getDrawable(imageID);
+        card.getImageviewCard().setImageDrawable(drawable);
+
         card.setFaceUp(true);
-        displayCards();
     }
 
     public void displayCardFaceDown(Card card){
+        int imageID = context.getResources().getIdentifier(card.getCardBack(),"drawable",context.getPackageName());
+        Drawable drawable = context.getResources().getDrawable(imageID);
+        card.getImageviewCard().setImageDrawable(drawable);
+
         card.setFaceUp(false);
-        displayCards();
     }
 
     public void displayCards(){
@@ -96,21 +119,68 @@ public class GamePlay {
     }
 
     public void onclickCard(View view){
-//        totalGuesses++;
+        Card card;
+        for(int i = 0; i < cards.size();i++){
+            card = cards.get(i);
+
+//            if(view == card.getImageviewCard()){
+//                flipCard(card);
+//            }
+
+
+            if(view == card.getImageviewCard() && cardFirst == null){
+                if(card.isFaceUp()){
+                    return;
+                }
+                cardFirst = card;
+                flipCard(cardFirst);
+            }
+            else if(view == card.getImageviewCard() && cardFirst != null){
+                if(card.isFaceUp()){
+                    return;
+                }
+                cardSecond = card;
+                flipCard(cardSecond);
+                totalGuesses++;
+                checkCardMatch();
+            }
+        }
     }
 
     public void checkCardMatch(){
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 1s = 1000ms
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                // Do something after 1s = 1000ms
+//            }
+//        }, 1000);
+
+        handler.postDelayed(() -> {
+            // Do something after 1s = 1000ms
+            if(cardFirst.getCardType() != cardSecond.getCardType()){
+                flipCard(cardFirst);
+                flipCard(cardSecond);
+                updateGuessesTextview();
             }
-        }, 1000);
+            else{
+                totalCorrect++;
+                updateGuessesTextview();
+                if(totalCorrect == MAX_MATCHES){
+                    gameOver();
+                }
+            }
+            cardFirst = null;
+            cardSecond = null;
+        }, 0);
     }
 
     public void gameOver(){
-
+        Toast.makeText(context, "GAME OVER", Toast.LENGTH_LONG).show();
+//        context.startActivity();
+        Intent intent = new Intent(context,PlayerActivity.class);
+//        startActivity(intent);
+        context.startActivity(intent);
     }
 
     public Card getCardByCardNum(int cardNum){
@@ -118,7 +188,6 @@ public class GamePlay {
     }
 
     public void updateGuessesTextview(){
-        TextView textviewGuesses = (TextView)findViewByID(R.id.tv_num_guesses);
         textviewGuesses.setText("Guesses: " + totalGuesses);
     }
 }
