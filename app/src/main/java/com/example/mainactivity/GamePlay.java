@@ -60,8 +60,7 @@ public class GamePlay {
         Card card;
         ImageView iv;
         for(int i = 0; i < cards.size(); i++) {
-
-            card = cards.get(i);
+            card = getCardByCardNum(i);
 
             iv = ((Activity)context).findViewById(context.getResources().getIdentifier("iv_card_" + i, "id", context.getPackageName()));
             card.setImageviewCard(iv);
@@ -97,7 +96,7 @@ public class GamePlay {
     public void displayCards(){
         Card card;
         for(int i = 0; i < cards.size();i++){
-            card = cards.get(i);
+            card = getCardByCardNum(i);
             if(card.isFaceUp()){
                 displayCardFaceUp(card);
             }
@@ -121,12 +120,7 @@ public class GamePlay {
     public void onclickCard(View view){
         Card card;
         for(int i = 0; i < cards.size();i++){
-            card = cards.get(i);
-
-//            if(view == card.getImageviewCard()){
-//                flipCard(card);
-//            }
-
+            card = getCardByCardNum(i);
 
             if(view == card.getImageviewCard() && cardFirst == null){
                 if(card.isFaceUp()){
@@ -135,7 +129,7 @@ public class GamePlay {
                 cardFirst = card;
                 flipCard(cardFirst);
             }
-            else if(view == card.getImageviewCard() && cardFirst != null){
+            else if(view == card.getImageviewCard() && cardSecond == null){
                 if(card.isFaceUp()){
                     return;
                 }
@@ -149,19 +143,16 @@ public class GamePlay {
 
     public void checkCardMatch(){
         final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                // Do something after 1s = 1000ms
-//            }
-//        }, 1000);
 
-        handler.postDelayed(() -> {
-            // Do something after 1s = 1000ms
             if(cardFirst.getCardType() != cardSecond.getCardType()){
-                flipCard(cardFirst);
-                flipCard(cardSecond);
                 updateGuessesTextview();
+                handler.postDelayed(() -> {
+                    // Do something after 1s = 1000ms
+                    flipCard(cardFirst);
+                    flipCard(cardSecond);
+                    cardFirst = null;
+                    cardSecond = null;
+                }, 1000);
             }
             else{
                 totalCorrect++;
@@ -169,17 +160,15 @@ public class GamePlay {
                 if(totalCorrect == MAX_MATCHES){
                     gameOver();
                 }
+                cardFirst = null;
+                cardSecond = null;
             }
-            cardFirst = null;
-            cardSecond = null;
-        }, 0);
     }
 
     public void gameOver(){
         Toast.makeText(context, "GAME OVER", Toast.LENGTH_LONG).show();
-//        context.startActivity();
         Intent intent = new Intent(context,PlayerActivity.class);
-//        startActivity(intent);
+        intent.putExtra("Score",totalGuesses);
         context.startActivity(intent);
     }
 

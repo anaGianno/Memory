@@ -4,6 +4,9 @@ package com.example.mainactivity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 
 public class Player {
     private String playerName;
@@ -11,9 +14,10 @@ public class Player {
     private int playerScore;
 
     public Player(Context context, String name, int avatarID, int score){
-        playerName = name;
-        playerScore = score;
-//        playerAvatar = getResources().getDrawable(avatarID);
+        this.playerName = name;
+        this.playerScore = score;
+//        playerAvatar = ContextCompat.getDrawable(context,avatarID);
+        this.playerAvatar = ContextCompat.getDrawable(context,avatarID);
     }
 
     public String getPlayerName(){

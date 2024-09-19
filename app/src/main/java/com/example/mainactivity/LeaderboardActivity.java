@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class LeaderboardActivity extends AppCompatActivity {
+    private Leaderboard leaderboardInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,9 @@ public class LeaderboardActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        leaderboardInstance = leaderboardInstance.getInstance();
+        leaderboardInstance.displayLeaderboard(this);
     }
-    private Leaderboard leaderboardInstance;
+
 }
