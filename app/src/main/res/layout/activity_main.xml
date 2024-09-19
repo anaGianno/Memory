@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!--  memory banner imageview, weight 8  -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -18,11 +19,13 @@
 
     </ImageView>
 
+    <!--constraint layout for play button, weight 2-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_margin="20dp">
+        <!--play game button, goes to game activity-->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,11 +38,13 @@
         </Button>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--constraint layout for leaderboard button, weight 2-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_margin="20dp">
+        <!--leaderboard button, goes to leaderboard activity-->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

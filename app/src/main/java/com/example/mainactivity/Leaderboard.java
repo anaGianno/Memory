@@ -26,7 +26,12 @@ public class Leaderboard {
         return IMG_ARRAY;
     }
 
+    /**
+     * adds the new player to the leaderboard
+     * @param currentPlayer
+     */
     public void updateLeaderboard(Player currentPlayer){
+        //if the leaderboard is full, remove the player with the lowest score
         if(leaderboard.size()==5){
             leaderboard.remove(4);
         }
@@ -34,16 +39,23 @@ public class Leaderboard {
         leaderboard.sort(Comparator.comparing(Player::getPlayerScore));
     }
 
+    /**
+     * displays all information about each player on the leaderboard to leaderboardactvity
+     * @param context
+     */
     public void displayLeaderboard(Context context){
         for(int i = 1; i<leaderboard.size()+1;i++){
+            //get the imageview for the players avatar using id and set the avatar of the player
             int ivAvatarID = context.getResources().getIdentifier("iv_leaderboard_avatar"+i,"id",context.getPackageName());
             ImageView ivAvatar =  ((Activity)context).findViewById(ivAvatarID);
             ivAvatar.setImageDrawable(leaderboard.get(i-1).getPlayerAvatar());
 
+            //get the textview for the players name using id and set the name of the player
             int tvNameID = context.getResources().getIdentifier("tv_leaderboard_name"+i,"id",context.getPackageName());
             TextView tvName =  ((Activity)context).findViewById(tvNameID);
             tvName.setText(leaderboard.get(i-1).getPlayerName() + " scored:");
 
+            //get the textview for the players score using id and set the score of the player
             int tvScoreID = context.getResources().getIdentifier("tv_leaderboard_score"+i,"id",context.getPackageName());
             TextView tvScore =  ((Activity)context).findViewById(tvScoreID);
             tvScore.setText(String.valueOf(leaderboard.get(i-1).getPlayerScore()));

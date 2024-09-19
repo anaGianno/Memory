@@ -16,7 +16,6 @@ public class Player {
     public Player(Context context, String name, int avatarID, int score){
         this.playerName = name;
         this.playerScore = score;
-//        playerAvatar = ContextCompat.getDrawable(context,avatarID);
         this.playerAvatar = ContextCompat.getDrawable(context,avatarID);
     }
 

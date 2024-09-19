@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".PlayerActivity">
-
+    <!--memory text imageview, weight 1-->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,7 +17,7 @@
         android:src="@drawable/img_memory_text">
 
     </ImageView>
-
+    <!--player score textview, weight 1-->
     <TextView
         android:id="@+id/tv_player_score"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline">
 
     </TextView>
-
+    <!--linear layout to contain user input for name-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,7 +37,7 @@
         android:layout_margin="20dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
-
+        <!--edit text for user to enter name-->
         <EditText
             android:id="@+id/et_playername"
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
 
         </EditText>
     </LinearLayout>
-
+    <!--linear layout to contain radio group for avatar colours-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -55,7 +55,7 @@
         android:layout_margin="20dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
-
+        <!--avatar colour label text-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,12 +64,12 @@
             android:text="Avatar Colour">
 
         </TextView>
-
+        <!--radio group for all avatar colour options-->
         <RadioGroup
             android:id="@+id/rg_avatar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <!--coder avatar colour radio button-->
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                 android:tag="0">
 
             </RadioButton>
-
+            <!--artist avatar colour radio button-->
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                 android:tag="1">
 
             </RadioButton>
-
+            <!--astronaut avatar colour radio button-->
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:tag="2">
 
             </RadioButton>
-
+            <!--doctor avatar colour radio button-->
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                 android:tag="3">
 
             </RadioButton>
-
+            <!--scientist avatar colour radio button-->
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,13 +117,13 @@
 
         </RadioGroup>
     </LinearLayout>
-
+    <!--constraint layout to contain submit button, weight 2-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:padding="20dp">
-
+        <!--submit button, goes to leaderboard activity-->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -34,21 +34,19 @@ public class Card {
         return cardNum;
     }
 
-        public String getCardType(){
-            return cardType;
-        }
+    public String getCardBack(){return cardBack;}
 
-        public String getCardBack(){
-            return cardBack;
-        }
+    public String getCardFront(){ return cardFront; }
 
-        public String getCardFront(){ return cardFront; }
-
-        public boolean isFaceUp(){
+    public boolean isFaceUp(){
             return isFaceUp;
         }
 
-        public void setFaceUp(boolean faceUp){ isFaceUp = faceUp; }
+    public String getCardType(){
+        return cardType;
+    }
+
+    public void setFaceUp(boolean faceUp){ isFaceUp = faceUp; }
 
     public ImageView getImageviewCard(){
         return imageviewCard;

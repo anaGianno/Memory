@@ -18,6 +18,7 @@ public class GameActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
 
+        //start the memory game on creation
         startGame();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -27,7 +28,9 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * create and setup new game for player
+     */
     public void startGame(){
         GamePlay gameplay = new GamePlay(this);
         gameplay.setupGame();

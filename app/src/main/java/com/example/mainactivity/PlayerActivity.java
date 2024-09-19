@@ -32,25 +32,42 @@ public class PlayerActivity extends AppCompatActivity {
             return insets;
         });
 
+        //get the intent from the gameplay to get the player's score
         Intent prevIntent = getIntent();
         playerScore = prevIntent.getIntExtra("Score",-1);
     }
 
+    /**
+     * initialises a new player to add to the leaderboard and goes to leaderboard activity
+     * @param view
+     */
     public void onclickSubmit(View view){
         leaderboardInstance = leaderboardInstance.getInstance();
 
+        //get the avatar colour the player chose
         RadioGroup rg = (RadioGroup) findViewById(R.id.rg_avatar);
         RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
-        if(rg.getCheckedRadioButtonId() == -1){
+        //display a toast message if the player didn't pick an avatar
+        if(rg.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "No Avatar Selected", Toast.LENGTH_LONG).show();
         }
         else{
-            avatarID = rg.indexOfChild(findViewById(rg.getCheckedRadioButtonId()));
+            //get the avatar colour chosen using the tag of the radio button
+            Object tag = rb.getTag();
+            avatarID = Integer.valueOf(tag.toString());
+
+//            avatarID = rg.indexOfChild(findViewById(rg.getCheckedRadioButtonId()));
             avatarID = leaderboardInstance.getImageArray()[avatarID];
 
+            //get the player name from the edittext using its id
             EditText et = (EditText) findViewById(R.id.et_playername);
             playerName = et.getText().toString();
 
+            //display a toast message if the player didn't enter a name
+            if(playerName.isEmpty()) {
+                Toast.makeText(this, "No name entered", Toast.LENGTH_LONG).show();
+                return;
+            }
             Player player = new Player(this,playerName,avatarID,playerScore);
 
             leaderboardInstance.updateLeaderboard(player);
