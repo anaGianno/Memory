@@ -70,9 +70,9 @@ public class GamePlay {
         Card card;
         ImageView iv;
         for(int i = 0; i < cards.size(); i++) {
-            card = getCardByCardNum(i);
+            card = getCardByCardNum(cards.get(i).getCardNum());
 
-            iv = ((Activity)context).findViewById(context.getResources().getIdentifier("iv_card_" + card.getCardNum(), "id", context.getPackageName()));
+            iv = ((Activity)context).findViewById(context.getResources().getIdentifier("iv_card_" + i, "id", context.getPackageName()));
             card.setImageviewCard(iv);
 
             iv.setOnClickListener(v -> {
